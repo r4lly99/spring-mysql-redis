@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -52,7 +54,10 @@ public class EmployeeREST {
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         try {
             Employee _employee = employeeService.saveEmployee(employee);
-            return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(_employee.getId()).toUri();
+
+            return ResponseEntity.created(location).build();
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -68,7 +73,7 @@ public class EmployeeREST {
             employee.setName(employee.getName());
             employee.setSalary(employee.getSalary());
             employee.setModifiedDate(LocalDateTime.now());
-            return new ResponseEntity<>(employeeService.saveEmployee(_employee), HttpStatus.OK);
+            return new ResponseEntity<>(employeeService.saveEmployee(_employee), HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
