@@ -1,15 +1,21 @@
 package com.irsyad.springmysqlredis.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "employees")
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Employee extends BaseEntity{
 
-    @Column(name="name", length = 256, nullable = false)
     private String name;
     private int age;
     private Double salary;
