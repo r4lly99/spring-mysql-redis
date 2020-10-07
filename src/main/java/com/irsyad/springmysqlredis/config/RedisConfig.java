@@ -2,6 +2,7 @@ package com.irsyad.springmysqlredis.config;
 
 import io.lettuce.core.ClientOptions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -14,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 @Configuration
-public class RedisConfig {
+public class RedisConfig extends CachingConfigurerSupport {
 
     @Value("${spring.redis.host}")
     private String redisHost;
@@ -22,8 +23,8 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private int redisPort;
 
-    private @Value("${spring.redis.timeout}")
-    Duration redisCommandTimeout;
+    @Value("${spring.redis.timeout}")
+    private Duration redisCommandTimeout;
 
     @Value("${spring.redis.pool.max-active}")
     private int maxPool;
