@@ -1,0 +1,62 @@
+#management endpoints on a separate port
+management:
+  port: 8091
+  security:
+    enabled: false # management port is internal only. no need to secure it.
+
+spring:
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+
+  # ===============================
+  # = Mysql configurations
+  # ===============================
+  datasource:
+    url: jdbc:mysql://localhost:3306/redis-cache?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: secret
+
+  # ===============================
+  # = Redis configurations
+  # ===============================ß
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    pool:
+      max-active: 4
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 3000
+
+  # ===============================
+  # = JPA configurations
+  # ===============================
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: MYSQL
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n"
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    root: WARN
+    com.irsyad.springmysqlredis: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org:
+      hibernate.SQL: DEBUG
+      hibernate.type.descriptor.sql.BasicBinder: TRACE
