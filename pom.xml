@@ -36,8 +36,9 @@
 			<artifactId>spring-boot-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			<version>5.3.4.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
